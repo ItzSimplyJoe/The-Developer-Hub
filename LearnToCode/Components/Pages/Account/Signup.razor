@@ -1,0 +1,28 @@
+﻿@page "/Signup"
+
+<div class="row">
+    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
+        <EditForm Model="Model" OnValidSubmit="SubmitFormAsync" FormName="LoginForm">
+            <DataAnnotationsValidator />
+
+            <div class="mb-3 text-center flex-column">
+                <p>Insert img here</p>
+                <h3>Login</h3>
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <InputText @bind-Value="Model.Email" class="form-control" placeholder="Email" />
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <InputText @bind-Value="Model.Password" class="form-control" type="password" placeholder="Password" />
+            </div>
+            <div class="mb-3 text-center">
+                <span class="text-danger">@errorMessage</span>
+            </div>
+            <div class="mb-3 d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Signup</button>
+            </div>
+        </EditForm>
+    </div>
+</div>

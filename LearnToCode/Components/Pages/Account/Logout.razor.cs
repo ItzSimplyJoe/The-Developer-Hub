@@ -14,8 +14,8 @@ namespace LearnToCode.Components.Pages.Account
             if (HttpContext.User.Identity.IsAuthenticated)
             {
                 await HttpContext.SignOutAsync();
+                navigationManager.NavigateTo("/logout", true);
             }
-            navigationManager.NavigateTo("/logout", true);
         }
     
     }
