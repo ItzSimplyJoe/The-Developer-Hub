@@ -5,6 +5,7 @@
 
 API/
 LearnToCode/appsettings.json
+LearnToCode/appsettings.development.json
 # User-specific files
 *.rsuser
 *.suo
