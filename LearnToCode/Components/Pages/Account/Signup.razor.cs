@@ -39,11 +39,12 @@ namespace LearnToCode.Components.Pages.Account
             };
 
             await appDbContext.User.AddAsync(user).ConfigureAwait(false);
+            await appDbContext.SaveChangesAsync().ConfigureAwait(false);
 
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.PermissionLevel)
+                new(ClaimTypes.Email, user.Email),
+                new(ClaimTypes.Role, user.PermissionLevel)
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
