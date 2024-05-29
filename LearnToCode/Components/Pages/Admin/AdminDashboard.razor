@@ -1,5 +1,4 @@
-﻿<h3>AdminDashboard</h3>
+﻿@page "/dashboard/admin"
+@attribute [Authorize(Roles = "Administrator")]
 
-@code {
-
-}
+<h1>Admin dashboard</h1>
