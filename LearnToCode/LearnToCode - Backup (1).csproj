@@ -18,8 +18,11 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="wwwroot\NewFolder\" />
+  </ItemGroup>
 
 	<Target Name="PostBuild" AfterTargets="PostBuildEvent">
-		<Exec Command="npx tailwindcss -i wwwroot/css/app.css -o wwwroot/css/site.css" />
+		<Exec Command="npx tailwindcss -i wwwroot/app.css -o wwwroot/site.css" />
 	</Target>
 </Project>
