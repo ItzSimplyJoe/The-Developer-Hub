@@ -1,8 +1,8 @@
-﻿using LearnToCode.Data;
-using LearnToCode.Domain.Entities;
+﻿using DeveloperHub.Data;
+using DeveloperHub.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnToCode.Data
+namespace DeveloperHub.Data
 {
     public class AppDbContext : DbContext
     {

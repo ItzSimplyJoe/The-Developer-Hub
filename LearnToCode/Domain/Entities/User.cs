@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LearnToCode.Domain.Entities
+namespace DeveloperHub.Domain.Entities
 {
     [Table("Users")]
     public record User

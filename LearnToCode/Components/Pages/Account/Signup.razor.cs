@@ -1,12 +1,12 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.Security.Claims;
-using LearnToCode.Domain.Entities;
+using DeveloperHub.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnToCode.Components.Pages.Account
+namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Signup
     {

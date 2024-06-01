@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace LearnToCode.Migrations
+namespace DeveloperHub.Migrations
 {
     /// <inheritdoc />
     public partial class UpdatedPermissionsToMatchClaims : Migration

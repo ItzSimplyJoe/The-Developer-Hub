@@ -1,5 +1,5 @@
-using LearnToCode.Components;
-using LearnToCode.Data;
+using DeveloperHub.Components;
+using DeveloperHub.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 

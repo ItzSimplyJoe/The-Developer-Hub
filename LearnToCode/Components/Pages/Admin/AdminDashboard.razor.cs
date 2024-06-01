@@ -1,4 +1,4 @@
-﻿namespace LearnToCode.Components.Pages.Admin
+﻿namespace DeveloperHub.Components.Pages.Admin
 {
     public partial class AdminDashboard
     {

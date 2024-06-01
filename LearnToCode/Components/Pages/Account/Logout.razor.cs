@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
 
-namespace LearnToCode.Components.Pages.Account
+namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Logout
     {

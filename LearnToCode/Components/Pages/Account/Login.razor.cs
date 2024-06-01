@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
-namespace LearnToCode.Components.Pages.Account
+namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Login
     {

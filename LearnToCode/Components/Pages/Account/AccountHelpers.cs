@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace LearnToCode.Components.Pages.Account
+namespace DeveloperHub.Components.Pages.Account
 {
     public static class AccountHelpers
     {
