@@ -19,8 +19,16 @@
             <NavLink href="/features" class="text-sm font-semibold leading-6 text-gray-900">Features</NavLink>
             <NavLink href="/contact" class="text-sm font-semibold leading-6 text-gray-900">Contact</NavLink>
         </div>
-        <div class="hidden lg:flex lg:flex-1 lg:justify-end">
-            <NavLink href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></NavLink>
+        <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-8">
+            <AuthorizeView>
+                <Authorized>
+                    <NavLink href="/dashboard" class="text-sm font-semibold leading-6 text-gray-900">Dashboard</NavLink>
+                    <NavLink href="/Account" class="text-sm font-semibold leading-6 text-gray-900">Account</NavLink>
+                </Authorized>
+                <NotAuthorized>
+                    <NavLink href="/login" class="text-sm font-semibold leading-6 text-gray-900">Log in <span aria-hidden="true">&rarr;</span></NavLink>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
     </nav>
     <!-- Mobile menu, show/hide based on menu open state. -->
@@ -48,7 +56,15 @@
                         <NavLink href="/contact" class="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Contact</NavLink>
                     </div>
                     <div class="py-6">
-                        <NavLink href="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</NavLink>
+                        <AuthorizeView>
+                            <Authorized>
+                                <NavLink href="/dashboard" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Dashboard</NavLink>
+                                <NavLink href="/Account" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Account</NavLink>
+                            </Authorized>
+                            <NotAuthorized>
+                                <NavLink href="/login" class="-mx-3 block rounded-lg px-3 py-2.5 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50">Log in</NavLink>
+                            </NotAuthorized>
+                        </AuthorizeView>
                     </div>
                 </div>
             </div>

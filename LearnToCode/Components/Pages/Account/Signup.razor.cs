@@ -4,6 +4,7 @@ using DeveloperHub.Domain.Entities;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeveloperHub.Components.Pages.Account
@@ -17,6 +18,7 @@ namespace DeveloperHub.Components.Pages.Account
 
         private string? errorMessage;
 
+        [IgnoreAntiforgeryToken]
         private async Task SubmitFormAsync()
         {
             if (Model.Email == null || Model.Password == null)
@@ -44,7 +46,9 @@ namespace DeveloperHub.Components.Pages.Account
             var claims = new List<Claim>
             {
                 new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.Role, user.PermissionLevel)
+                new(ClaimTypes.Role, user.PermissionLevel),
+                new Claim(ClaimTypes.Name, user.Name ?? user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

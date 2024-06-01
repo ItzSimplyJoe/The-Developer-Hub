@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeveloperHub.Components.Pages.Account
@@ -16,6 +17,7 @@ namespace DeveloperHub.Components.Pages.Account
 
         private string? errorMessage;
 
+        [IgnoreAntiforgeryToken]
         private async Task SubmitFormAsync()
         {
             var user = await appDbContext.User.FirstOrDefaultAsync(user =>
@@ -30,7 +32,9 @@ namespace DeveloperHub.Components.Pages.Account
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.PermissionLevel)
+                new Claim(ClaimTypes.Role, user.PermissionLevel),
+                new Claim(ClaimTypes.Name, user.Name ?? user.Email),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);

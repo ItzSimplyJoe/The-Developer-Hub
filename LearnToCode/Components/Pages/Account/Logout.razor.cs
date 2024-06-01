@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc;
 
 namespace DeveloperHub.Components.Pages.Account
 {
@@ -8,6 +9,7 @@ namespace DeveloperHub.Components.Pages.Account
         [CascadingParameter]
         public HttpContext? HttpContext { get; set; }
 
+        [IgnoreAntiforgeryToken]
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
