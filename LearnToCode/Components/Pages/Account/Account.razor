@@ -18,11 +18,11 @@ else
                     User Settings
                 </h2>
             </div>
-            @*
-                Profile Picture & Name
-            *@
             <div class="flex flex-col lg:flex-row gap-6 w-full">
                 <div class="w-1/2 flex flex-col gap-6">
+                    @*
+                        Profile Picture & Name
+                    *@
                     <div class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-center flex flex-col md:flex-row">
                         <div class="w-24 h-24 flex justify-center items-center bg-red-200 rounded-full text-3xl font-bold">
                             JB
@@ -81,7 +81,7 @@ else
                         <div class="flex flex-col gap-6 divide-y divide-gray-200 w-full">
                             <div class="flex flex-row justify-between w-full py-2 gap-4">
                                 <div class="w-10 h-10">
-                                    <img src="Images/Icons/github.svg" />
+                                    <img src="Images/Icons/github.svg" alt="Social Logo" />
                                 </div>
                                 <div class="flex flex-col w-full">
                                     <h4>Github account</h4>
@@ -93,7 +93,7 @@ else
                             </div>
                             <div class="flex flex-row justify-between w-full py-2 gap-4 items-center h-full">
                                 <div class="w-10 h-10">
-                                    <img src="Images/Icons/github.svg" />
+                                    <img src="Images/Icons/github.svg" alt="Social Logo" />
                                 </div>
                                 <div class="flex flex-col w-full">
                                     <h4>Github account</h4>
@@ -104,21 +104,129 @@ else
                                 </button>
                             </div>
                         </div>
-                        <div class="flex flex-row justify-end mt-4">
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex items-center">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm-1-5a1 1 0 011-1h2a1 1 0 010 2h-2a1 1 0 01-1-1zm-1-3a1 1 0 011-1h4a1 1 0 010 2h-4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                        <div class="flex flex-col md:flex-row justify-between mt-4 w-full gap-2">
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                                Save Settings
+                            </button>
+
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex items-center gap-2">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="h-6 w-6 rounded-full fill-white">
+                                    <path fill="currentColor" d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/>
                                 </svg>
                                 New social account
                             </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="w-full flex flex-col gap-6">
+                    @*
+                        User Details
+                    *@
+                    <div class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-start flex flex-col">
+                        <div class="w-full">
+                            <h4 class="font-semibold text-2xl w-full">
+                                User Details
+                            </h4>
+                        </div>
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+                            <div class="flex flex-col gap-2">
+                                <label for="firstName" class="text-gray-800 font-semibold text-md">First Name</label>
+                                <input type="text" id="firstName" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your first name" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="lastName" class="text-gray-800 font-semibold text-md">Last Name</label>
+                                <input type="text" id="lastName" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your last name" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="country" class="text-gray-800 font-semibold text-md">Country</label>
+                                <input type="text" id="country" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your country" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="city" class="text-gray-800 font-semibold text-md">City</label>
+                                <input type="text" id="city" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your city" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="address" class="text-gray-800 font-semibold text-md">Address</label>
+                                <input type="text" id="address" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your address" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="email" class="text-gray-800 font-semibold text-md">Email</label>
+                                <input type="email" id="email" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your email" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="phone" class="text-gray-800 font-semibold text-md">Phone Number</label>
+                                <input type="tel" id="phone" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your phone number" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="birthday" class="text-gray-800 font-semibold text-md">Birthday</label>
+                                <input type="text" id="birthday" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your birthday" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="organization" class="text-gray-800 font-semibold text-md">Organization</label>
+                                <input type="text" id="organization" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your organization" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="role" class="text-gray-800 font-semibold text-md">Role</label>
+                                <input type="text" id="role" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your role" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="department" class="text-gray-800 font-semibold text-md">Department</label>
+                                <input type="text" id="department" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your department" />
+                            </div>
+
+                            <div class="flex flex-col gap-2">
+                                <label for="zip" class="text-gray-800 font-semibold text-md">Zip/Postal Code</label>
+                                <input type="text" id="zip" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your zip/postal code" />
+                            </div>
                         </div>
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
                             Save Settings
                         </button>
                     </div>
-                </div>
-                <div class="w-full flex flex-col gap-6">
-
+                    <div class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-start flex flex-col">
+                        <div class="w-full">
+                            <h4 class="font-semibold text-2xl w-full">
+                                Password
+                            </h4>
+                        </div>
+                        <div class="flex flex-col gap-2 w-full">
+                            <label for="currentPassword" class="text-gray-800 font-semibold text-md">Current Password</label>
+                            <input type="password" id="currentPassword" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your current password" />
+                        </div>
+                        <div class="flex flex-col lg:flex-row gap-6 w-full">
+                            <div class="flex flex-col gap-2 w-full">
+                                <label for="newPassword" class="text-gray-800 font-semibold text-md">New Password</label>
+                                <input type="password" id="newPassword" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your new password" />
+                            </div>
+                            <div class="flex flex-col gap-2 w-full">
+                                <label for="confirmPassword" class="text-gray-800 font-semibold text-md">Confirm Password</label>
+                                <input type="password" id="confirmPassword" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Confirm your new password" />
+                            </div>
+                        </div>
+                        <div class="text-gray-600 text-sm">
+                            <span class="font-semibold">Password requirements:</span>
+                            <ul class="list-disc list-inside">
+                                <li>At least 8 characters</li>
+                                <li>At least one uppercase letter</li>
+                                <li>At least one lowercase letter</li>
+                                <li>At least one number</li>
+                                <li>At least one special character</li>
+                            </ul>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                            Save Settings
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
