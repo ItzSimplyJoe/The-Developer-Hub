@@ -28,5 +28,7 @@ namespace DeveloperHub.Domain.Entities
 
         [Column("ProfilePicture")]
         public string? ImageBytes { get; set; }
+
+        public virtual IEnumerable<Friends>? Friends { get; set; }
     }
 }
