@@ -1,38 +1,120 @@
 ﻿@page "/Account"
-@inject IJSRuntime JS
+@using TimeZone = DeveloperHub.Components.Pages.Account.AccountEnums.TimeZone
+@using DeveloperHub.Components.Pages.Account.AccountEnums
 @if (User == null)
 {
     <p>Loading...</p>
 }
 else
 {
-    <div class="w-full h-full bg-grey-100 flex flex-row">
+    <div class="w-full h-full bg-grey-200 flex flex-row">
 
         <Sidebar />
 
-        <div class="gap-6 p-6">
+        <div class="gap-6 p-6 w-full">
 
             <div class="w-full">
                 <h2 class="text-gray-900 font-semibold text-3xl">
                     User Settings
                 </h2>
             </div>
-            <div class="flex flex-col lg:flex-row gap-6">
-                <div class="w-3/4 flex flex-col gap-6">
-                    <div class="bg-white w-full shadow-md rounded-lg p-8 justify-start items-center flex flex-col md:flex-row">
-                        <div class="w-24 h-24 flex justify-center items-center bg-red-200">
+            @*
+                Profile Picture & Name
+            *@
+            <div class="flex flex-col lg:flex-row gap-6 w-full">
+                <div class="w-1/2 flex flex-col gap-6">
+                    <div class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-center flex flex-col md:flex-row">
+                        <div class="w-24 h-24 flex justify-center items-center bg-red-200 rounded-full text-3xl font-bold">
                             JB
                         </div>
 
-                        <div class="flex flex-col gap-4">
-                            <h3 class="text-gray-800">@User?.Name</h3>
-                            <p class="text-gray-500">Job Role</p>
-                            <div class="bg-white w-full shadow-md rounded-lg p-8 justify-start items-center flex flex-col md:flex-row">
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <div class="flex flex-col gap-2">
+                            <h3 class="text-gray-800 font-semibold text-2xl">Joe Bostock</h3>
+                            <p class="text-gray-500 text-xl">Developer</p>
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
                                 Change PFP
                             </button>
+                        </div>
+                    </div>
+
+                    @*
+                        Language & Timezone
+                    *@
+                    <div class="bg-white w-full shadow-md rounded-lg gap-6 p-8 justify-start items-start flex flex-col">
+                        <h4 class="font-semibold text-2xl w-full">
+                            Language & Timezone
+                        </h4>
+
+                        <div class="flex flex-col gap-6 w-full">
+                            <div class="flex flex-row gap-4 w-full justify-center items-center">
+                                <label for="language" class="text-gray-800 font-semibold text-xl">Language</label>
+                                <select name="language" id="language" class="p-2 rounded-lg bg-gray-100 border border-gray-400 p-2 w-full">
+                                    @foreach (var language in Enum.GetValues(typeof(Language)))
+                                    {
+                                        <option value="@language">@language.ToString()</option>
+                                    }
+                                </select>
+                            </div>
+                            <div class="flex flex-row gap-4 w-full justify-center items-center">
+                                <label for="timezone" class="text-gray-800 font-semibold text-xl">Timezone</label>
+                                <select name="timezone" id="timezone" class="p-2 rounded-lg bg-gray-100 border border-gray-400 p-2 w-full">
+                                    @foreach (var timezone in Enum.GetValues(typeof(TimeZone)))
+                                    {
+                                        <option value="@timezone">@timezone.ToString()</option>
+                                    }
+                                </select>
                             </div>
                         </div>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                            Save Settings
+                        </button>
+                    </div>
+
+                    @*
+                        Social Media Accounts
+                    *@
+                    <div class="bg-white w-full shadow-md rounded-lg gap-6 p-8 justify-start items-start flex flex-col">
+                        <h4 class="font-semibold text-2xl w-full">
+                            Social accounts
+                        </h4>
+
+                        <div class="flex flex-col gap-6 divide-y divide-gray-200 w-full">
+                            <div class="flex flex-row justify-between w-full py-2 gap-4">
+                                <div class="w-10 h-10">
+                                    <img src="Images/Icons/github.svg" />
+                                </div>
+                                <div class="flex flex-col w-full">
+                                    <h4>Github account</h4>
+                                    <a href="#" class="text-blue-400 hover:underline hover:underline-offset-2">www.github.com/ItzSimplyJoe</a>
+                                </div>
+                                <button class="border border-gray-600 hover:bg-gray-100 text-gray-600 font-bold py-2 px-4 rounded-lg">
+                                    Disconnect
+                                </button>
+                            </div>
+                            <div class="flex flex-row justify-between w-full py-2 gap-4 items-center h-full">
+                                <div class="w-10 h-10">
+                                    <img src="Images/Icons/github.svg" />
+                                </div>
+                                <div class="flex flex-col w-full">
+                                    <h4>Github account</h4>
+                                    <span class="text-gray-600">Not connected</span>
+                                </div>
+                                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                                    Connect
+                                </button>
+                            </div>
+                        </div>
+                        <div class="flex flex-row justify-end mt-4">
+                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg flex items-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm-1-5a1 1 0 011-1h2a1 1 0 010 2h-2a1 1 0 01-1-1zm-1-3a1 1 0 011-1h4a1 1 0 010 2h-4a1 1 0 01-1-1z" clip-rule="evenodd" />
+                                </svg>
+                                New social account
+                            </button>
+                        </div>
+                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                            Save Settings
+                        </button>
                     </div>
                 </div>
                 <div class="w-full flex flex-col gap-6">
