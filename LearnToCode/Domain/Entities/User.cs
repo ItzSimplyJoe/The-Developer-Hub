@@ -21,5 +21,12 @@ namespace DeveloperHub.Domain.Entities
         [Column("PermissionLevel")]
         [MaxLength(100)]
         public required string PermissionLevel { get; set; }
+
+        [Column("Name")]
+        [MaxLength(100)]
+        public string? Name { get; set; }
+
+        [Column("ProfilePicture")]
+        public string? ImageBytes { get; set; }
     }
 }
