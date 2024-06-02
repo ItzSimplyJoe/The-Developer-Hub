@@ -64,6 +64,27 @@ namespace DeveloperHub.Components.Pages.Account
 
             [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter a password")]
             public string? Password { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "You must re-enter your password")]
+            public string? ConfirmPassword { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter your first name")]
+            public string? FirstName { get; set; }
+
+            [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter a last name")]
+            public string? LastName { get; set; }
+            public string? PhoneNumber { get; set; }
+            public string? Address { get; set; }
+            public string? City { get; set; }
+            public string? Country { get; set; }
+            public string? PostalCode { get; set; }
+            public string? Organisation { get; set; }
+            public string? Role { get; set; }
+            public string? Department { get; set; }
+
+            [Required(ErrorMessage = "You must enter a your DOB")]
+            public DateTime? Birthday { get; set; }
+
         }
     }
 }

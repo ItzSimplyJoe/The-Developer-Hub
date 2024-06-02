@@ -1149,10 +1149,6 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   margin-bottom: 0.5rem;
 }
 
-.mb-3 {
-  margin-bottom: 0.75rem;
-}
-
 .mb-4 {
   margin-bottom: 1rem;
 }
@@ -1590,6 +1586,10 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   overflow-y: auto;
 }
 
+.overflow-x-hidden {
+  overflow-x: hidden;
+}
+
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1612,14 +1612,14 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   border-radius: 0.375rem;
 }
 
-.rounded-l-md {
-  border-top-left-radius: 0.375rem;
-  border-bottom-left-radius: 0.375rem;
+.rounded-l-lg {
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
 }
 
-.rounded-r-md {
-  border-top-right-radius: 0.375rem;
-  border-bottom-right-radius: 0.375rem;
+.rounded-r-lg {
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
 }
 
 .border {
@@ -1842,6 +1842,11 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
      object-fit: cover;
 }
 
+.object-center {
+  -o-object-position: center;
+     object-position: center;
+}
+
 .object-right {
   -o-object-position: right;
      object-position: right;
@@ -1966,10 +1971,6 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
 
 .pb-2 {
   padding-bottom: 0.5rem;
-}
-
-.pb-4 {
-  padding-bottom: 1rem;
 }
 
 .pl-10 {
@@ -2846,6 +2847,10 @@ h1:focus {
     flex-direction: row;
   }
 
+  .md\:gap-6 {
+    gap: 1.5rem;
+  }
+
   .md\:object-center {
     -o-object-position: center;
        object-position: center;
@@ -2867,12 +2872,20 @@ h1:focus {
     margin-top: 6rem;
   }
 
+  .lg\:block {
+    display: block;
+  }
+
   .lg\:flex {
     display: flex;
   }
 
   .lg\:hidden {
     display: none;
+  }
+
+  .lg\:h-screen {
+    height: 100vh;
   }
 
   .lg\:w-1\/2 {

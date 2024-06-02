@@ -1,28 +1,143 @@
 ﻿@page "/Signup"
 
-<div class="row">
-    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
-        <EditForm Model="Model" OnValidSubmit="SubmitFormAsync" FormName="LoginForm">
-            <DataAnnotationsValidator />
+<NavMenu />
 
-            <div class="mb-3 text-center flex-column">
-                <p>Insert img here</p>
-                <h3>Login</h3>
+<div class="flex py-24 lg:h-screen w-full justify-center items-center overflow-x-hidden">
+    <div class="max-w-screen-xl flex h-full shadow-md w-full">
+        <div class="flex-1 flex items-center justify-center bg-white h-full rounded-l-lg p-6">
+            <div class="max-w-md w-full">
+                <div class="text-center mb-2 hidden lg:block">
+                    <img src="Images/LogoLightTheme.png" class="w-8 h-8" />
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Create your account</h2>
+                <p class="text-sm text-gray-600 mb-6">
+                    Already a member? <a href="/Login" class="text-indigo-600">
+                        Sign in
+                        now!
+                    </a>
+                </p>
+                <EditForm Model="Model" OnValidSubmit="SubmitFormAsync" FormName="SignupForm" class="w-full">
+                    <DataAnnotationsValidator />
+                    <div class="flex flex-col gap-2 md:gap-6 w-full">
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full">
+                                <label for="firstName" class="sr-only">First Name</label>
+                                <InputText @bind-Value="Model.FirstName" id="firstName" name="firstName" required
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="First Name *" />
+                            </div>
+                            <div class="w-full">
+                                <label for="lastName" class="sr-only">Last Name</label>
+                                <InputText @bind-Value="Model.LastName" id="lastName" name="lastName" required
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Last Name *" />
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="email" class="sr-only">Email address</label>
+                            <InputText @bind-Value="Model.Email" id="email" name="email" type="email"
+                                       autocomplete="email" required
+                                       class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                       placeholder="Email address *" />
+                        </div>
+                        <div>
+                            <label for="password" class="sr-only">Password</label>
+                            <InputText @bind-Value="Model.Password" id="password" name="password" type="password"
+                                       autocomplete="current-password" required
+                                       class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                       placeholder="Password *" />
+                        </div>
+                        <div>
+                            <label for="confirmPassword" class="sr-only">Confirm Password</label>
+                            <InputText @bind-Value="Model.ConfirmPassword" id="confirmPassword" name="confirmPassword"
+                                       type="password" autocomplete="current-password" required
+                                       class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                       placeholder="Confirm Password *" />
+                        </div>
+                        <div>
+                            <label for="birthday" class="sr-only">Birthday</label>
+                            <InputDate @bind-Value="Model.Birthday" id="birthday" name="birthday"
+                                       class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                        </div>
+
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full">
+                                <label for="address" class="sr-only">Address</label>
+                                <InputText @bind-Value="Model.Address" id="address" name="address"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Address Line 1" />
+                            </div>
+                            <div class="w-full">
+                                <label for="city" class="sr-only">City</label>
+                                <InputText @bind-Value="Model.City" id="city" name="city"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="City" />
+                            </div>
+                        </div>
+
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full">
+                                <label for="country" class="sr-only">Country</label>
+                                <InputText @bind-Value="Model.Country" id="country" name="country"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Country" />
+                            </div>
+                            <div class="w-full">
+                                <label for="postalCode" class="sr-only">Postal Code</label>
+                                <InputText @bind-Value="Model.PostalCode" id="postalCode" name="postalCode"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Postal Code" />
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full">
+                                <label for="organisation" class="sr-only">Organisation</label>
+                                <InputText @bind-Value="Model.Organisation" id="organisation" name="organisation"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Organisation" />
+                            </div>
+                            <div class="w-full">
+                                <label for="role" class="sr-only">Role</label>
+                                <InputText @bind-Value="Model.Role" id="role" name="role"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Role" />
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full">
+                                <label for="phoneNumber" class="sr-only">Phone Number</label>
+                                <InputText @bind-Value="Model.PhoneNumber" id="phoneNumber" name="phoneNumber" type="tel"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Phone Number" />
+                            </div>
+                            <div class="w-full">
+                                <label for="department" class="sr-only">Department</label>
+                                <InputText @bind-Value="Model.Department" id="department" name="department"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Department" />
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit"
+                                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Sign up
+                            </button>
+                        </div>
+                    </div>
+                </EditForm>
             </div>
-            <div class="mb-3">
-                <label>Email</label>
-                <InputText @bind-Value="Model.Email" class="form-control" placeholder="Email" />
+        </div>
+        <div class="h-full flex-1 hidden lg:flex relative items-center justify-center">
+            <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
+                <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
             </div>
-            <div class="mb-3">
-                <label>Password</label>
-                <InputText @bind-Value="Model.Password" class="form-control" type="password" placeholder="Password" />
+            <div class="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu" aria-hidden="true">
+                <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
             </div>
-            <div class="mb-3 text-center">
-                <span class="text-danger">@errorMessage</span>
+            <div class="absolute inset-0 w-full h-full">
+                <img src="/Images/codingImage.jpg" alt="Image" class="object-cover object-center w-full h-full">
             </div>
-            <div class="mb-3 d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Signup</button>
-            </div>
-        </EditForm>
+        </div>
     </div>
 </div>

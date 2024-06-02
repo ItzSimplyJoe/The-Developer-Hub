@@ -59,9 +59,9 @@ namespace DeveloperHub.Domain.Entities
         [Column("DateUpdated")]
         public DateTime? DateUpdated { get; set; }
 
-        [Column("Orangisation")]
+        [Column("Organisation")]
         [MaxLength(100)]
-        public string? Orangisation { get; set; }
+        public string? Organisation { get; set; }
 
         [Column("Role")]
         [MaxLength(100)]
