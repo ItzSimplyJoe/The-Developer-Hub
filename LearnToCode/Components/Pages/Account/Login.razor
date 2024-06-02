@@ -1,28 +1,54 @@
 ﻿@page "/Login"
 
-<div class="row">
-    <div class="col-lg-4 offset-lg-4 pt-4 pb-4 border">
-        <EditForm Model="Model" OnValidSubmit="SubmitFormAsync" FormName="LoginForm">
-            <DataAnnotationsValidator />
-            
-            <div class="mb-3 text-center flex-column">
-                <p>Insert img here</p>
-                <h3>Login</h3>
+<NavMenu />
+
+<div class="flex py-24 h-screen w-full justify-center items-center overflow-hidden">
+    <div class="max-w-screen-xl flex h-full shadow-md">
+        <div class="flex-1 flex items-center justify-center bg-white h-full rounded-l-lg">
+            <div class="max-w-md w-full">
+                <div class="text-center mb-8">
+                    <img src="Images/LogoLightTheme.png" class="w-8 h-8"/>
+                </div>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Sign in to your account</h2>
+                <p class="text-sm text-gray-600 mb-6">Not a member? <a href="/Signup" class="text-indigo-600">Sign up now!</a></p>
+                <EditForm Model="Model" OnValidSubmit="SubmitFormAsync" FormName="LoginForm">
+                    <DataAnnotationsValidator/>
+                    <div class="flex flex-col gap-6">
+                        <div>
+                            <label for="email" class="sr-only">Email address</label>
+                            <InputText @bind-Value="Model.Email" id="email" name="email" type="email" autocomplete="email" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Email address"/>
+                        </div>
+                        <div>
+                            <label for="password" class="sr-only">Password</label>
+                            <InputText @bind-Value="Model.Password" id="password" name="password" type="password" autocomplete="current-password" required class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" placeholder="Password"/>
+                        </div>
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-gray-300 rounded">
+                                <label for="remember-me" class="ml-2 block text-sm text-gray-900"> Remember me </label>
+                            </div>
+                            <div class="text-sm">
+                                <a href="/forgot-password" class="font-medium text-indigo-600 hover:text-indigo-500"> Forgot password? </a>
+                            </div>
+                        </div>
+                        <div>
+                            <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                Sign in
+                            </button>
+                        </div>
+                    </div>
+
+                </EditForm>
             </div>
-            <div class="mb-3">
-                <label>Email</label>
-                <InputText @bind-Value="Model.Email" class="form-control" placeholder="Email" />
+        </div>
+        <div class="h-full flex-1 hidden lg:flex relative items-center justify-center bg-cover rounded-r-lg" style="background-image: url('/Images/codingImage.jpg');">
+            <div class="hidden sm:absolute sm:-top-10 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu sm:blur-3xl" aria-hidden="true">
+                <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
             </div>
-            <div class="mb-3">
-                <label>Password</label>
-                <InputText @bind-Value="Model.Password" class="form-control" type="password" placeholder="Password" />
+            <div class="absolute -top-52 left-1/2 -z-10 -translate-x-1/2 transform-gpu blur-3xl sm:top-[-28rem] sm:ml-16 sm:translate-x-0 sm:transform-gpu" aria-hidden="true">
+                <div class="aspect-[1097/845] w-[68.5625rem] bg-gradient-to-tr from-[#ff4694] to-[#776fff] opacity-20" style="clip-path: polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)"></div>
             </div>
-            <div class="mb-3 text-center">
-                <span class="text-danger">@errorMessage</span>
-            </div>
-            <div class="mb-3 d-grid gap-2">
-                <button type="submit" class="btn btn-primary">Login</button>
-            </div>
-        </EditForm>
+            <img src="/Images/codingImage.jpg" alt="User coding with holographic popping out" class="w-full h-full object-cover rounded-r-lg">
+        </div>
     </div>
 </div>

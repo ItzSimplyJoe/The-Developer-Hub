@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DeveloperHub.Domain.Entities
 {
-    public class Friends
+    public record Friends
     {
         [Key]
         [Column("Id")]

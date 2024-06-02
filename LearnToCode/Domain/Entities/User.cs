@@ -22,9 +22,58 @@ namespace DeveloperHub.Domain.Entities
         [MaxLength(100)]
         public required string PermissionLevel { get; set; }
 
+        [Column("FirstName")]
+        [MaxLength(100)]
+        public string FirstName { get; set; }
+
+        [Column("LastName")]
+        [MaxLength(100)]
+        public string LastName { get; set; }
+
         [Column("Name")]
         [MaxLength(100)]
-        public string? Name { get; set; }
+        public string Name { get; set; }
+
+        [Column("Country")]
+        [MaxLength(100)]
+        public string? Country { get; set; }
+
+        [Column("City")]
+        [MaxLength(100)]
+        public string? City { get; set; }
+
+        [Column("Address")]
+        [MaxLength(100)]
+        public string? Address { get; set; }
+
+        [Phone]
+        [Column("PhoneNumber")]
+        public string? PhoneNumber { get; set; }
+
+        [Column("Birthday")]
+        public DateTime? Birthday { get; set; }
+
+        [Column("DateCreated")]
+        public DateTime DateCreated { get; set; }
+
+        [Column("DateUpdated")]
+        public DateTime? DateUpdated { get; set; }
+
+        [Column("Orangisation")]
+        [MaxLength(100)]
+        public string? Orangisation { get; set; }
+
+        [Column("Role")]
+        [MaxLength(100)]
+        public string? Role { get; set; }
+
+        [Column("Department")]
+        [MaxLength(100)]
+        public string? Department { get; set; }
+
+        [Column("PostalCode")]
+        [MaxLength(100)]
+        public string? PostalCode { get; set; }
 
         [Column("ProfilePicture")]
         public string? ImageBytes { get; set; }
