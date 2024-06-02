@@ -15,6 +15,7 @@ module.exports = {
     },
     plugins: [
         require('@tailwindcss/forms'),
-        require('taos/plugin')
+        require('taos/plugin'),
+        require('tailwind-scrollbar'),
     ],
 }

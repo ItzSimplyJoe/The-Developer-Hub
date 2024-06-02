@@ -13,7 +13,6 @@ namespace DeveloperHub.Components.Pages.Account
         [CascadingParameter]
         public HttpContext? HttpContext { get; set; }
 
-        [SupplyParameterFromForm] 
         public LoginViewModel Model { get; set; } = new();
 
         private string? errorMessage;
@@ -34,7 +33,7 @@ namespace DeveloperHub.Components.Pages.Account
             {
                 new Claim(ClaimTypes.Email, user.Email),
                 new Claim(ClaimTypes.Role, user.PermissionLevel),
-                new Claim(ClaimTypes.Name, user.Name ?? user.Email),
+                new Claim(ClaimTypes.Name, user.Name),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
 

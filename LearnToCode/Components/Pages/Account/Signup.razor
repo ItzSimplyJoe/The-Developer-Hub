@@ -1,129 +1,148 @@
 ﻿@page "/Signup"
+@rendermode InteractiveServer
 
 <NavMenu />
-
-<div class="flex py-24 lg:h-screen w-full justify-center items-center overflow-x-hidden">
+<div class="flex py-24 w-full lg:h-screen justify-center items-center overflow-x-hidden">
     <div class="max-w-screen-xl flex h-full shadow-md w-full">
-        <div class="flex-1 flex items-center justify-center bg-white h-full rounded-l-lg p-6">
+        <div class="flex-1 flex items-center justify-center bg-white h-full rounded-l-lg p-6 overflow-y-auto scrollbar-thin scrollbar-thumb-rounded-lg scrollbar-track-white scrollbar-thumb-gray-400">
             <div class="max-w-md w-full">
-                <div class="text-center mb-2 hidden lg:block">
-                    <img src="Images/LogoLightTheme.png" class="w-8 h-8" />
-                </div>
                 <h2 class="text-3xl font-bold text-gray-900 mb-2">Create your account</h2>
                 <p class="text-sm text-gray-600 mb-6">
                     Already a member? <a href="/Login" class="text-indigo-600">
-                        Sign in
-                        now!
+                        Sign in now!
                     </a>
                 </p>
-                <EditForm Model="Model" OnValidSubmit="SubmitFormAsync" FormName="SignupForm" class="w-full">
-                    <DataAnnotationsValidator />
+                <EditForm Model="@_model" OnValidSubmit="@SubmitFormAsync" FormName="SignUpForm">
+                    <FluentValidationValidator DisableAssemblyScanning="true" Validator="@_validator" />
                     <div class="flex flex-col gap-2 md:gap-6 w-full">
                         <div class="w-full flex flex-col md:flex-row gap-2">
-                            <div class="w-full">
+                            <div class="w-full flex flex-col">
                                 <label for="firstName" class="sr-only">First Name</label>
-                                <InputText @bind-Value="Model.FirstName" id="firstName" name="firstName" required
+                                <InputText @bind-Value="_model.FirstName" id="firstName" name="firstName"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="First Name *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.FirstName" />
                             </div>
-                            <div class="w-full">
+                            <div class="w-full flex flex-col">
                                 <label for="lastName" class="sr-only">Last Name</label>
-                                <InputText @bind-Value="Model.LastName" id="lastName" name="lastName" required
+                                <InputText @bind-Value="_model.LastName" id="lastName" name="lastName"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Last Name *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.LastName" />
                             </div>
                         </div>
 
-                        <div>
+                        <div class="flex flex-col">
                             <label for="email" class="sr-only">Email address</label>
-                            <InputText @bind-Value="Model.Email" id="email" name="email" type="email"
-                                       autocomplete="email" required
+                            <InputText @bind-Value="_model.Email" id="email" name="email" type="email"
+                                       autocomplete="email"
                                        class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                        placeholder="Email address *" />
+                            <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Email" />
                         </div>
-                        <div>
+                        <div class="flex flex-col">
                             <label for="password" class="sr-only">Password</label>
-                            <InputText @bind-Value="Model.Password" id="password" name="password" type="password"
-                                       autocomplete="current-password" required
+                            <InputText @bind-Value="_model.Password" id="password" name="password" type="password"
+                                       autocomplete="current-password"
                                        class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                        placeholder="Password *" />
+                            <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Password" />
                         </div>
-                        <div>
+                        <div class="flex flex-col">
                             <label for="confirmPassword" class="sr-only">Confirm Password</label>
-                            <InputText @bind-Value="Model.ConfirmPassword" id="confirmPassword" name="confirmPassword"
-                                       type="password" autocomplete="current-password" required
+                            <InputText @bind-Value="_model.ConfirmPassword" id="confirmPassword"
+                                       type="password"
                                        class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                        placeholder="Confirm Password *" />
-                        </div>
-                        <div>
-                            <label for="birthday" class="sr-only">Birthday</label>
-                            <InputDate @bind-Value="Model.Birthday" id="birthday" name="birthday"
-                                       class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm" />
+                            <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.ConfirmPassword" />
                         </div>
 
                         <div class="w-full flex flex-col md:flex-row gap-2">
-                            <div class="w-full">
-                                <label for="address" class="sr-only">Address</label>
-                                <InputText @bind-Value="Model.Address" id="address" name="address"
-                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Address Line 1" />
-                            </div>
-                            <div class="w-full">
-                                <label for="city" class="sr-only">City</label>
-                                <InputText @bind-Value="Model.City" id="city" name="city"
-                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="City" />
-                            </div>
-                        </div>
-
-                        <div class="w-full flex flex-col md:flex-row gap-2">
-                            <div class="w-full">
-                                <label for="country" class="sr-only">Country</label>
-                                <InputText @bind-Value="Model.Country" id="country" name="country"
-                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Country" />
-                            </div>
-                            <div class="w-full">
-                                <label for="postalCode" class="sr-only">Postal Code</label>
-                                <InputText @bind-Value="Model.PostalCode" id="postalCode" name="postalCode"
-                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Postal Code" />
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-col md:flex-row gap-2">
-                            <div class="w-full">
-                                <label for="organisation" class="sr-only">Organisation</label>
-                                <InputText @bind-Value="Model.Organisation" id="organisation" name="organisation"
-                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Organisation" />
-                            </div>
-                            <div class="w-full">
-                                <label for="role" class="sr-only">Role</label>
-                                <InputText @bind-Value="Model.Role" id="role" name="role"
-                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Role" />
-                            </div>
-                        </div>
-                        <div class="w-full flex flex-col md:flex-row gap-2">
-                            <div class="w-full">
+                            <div class="w-full flex flex-col">
                                 <label for="phoneNumber" class="sr-only">Phone Number</label>
-                                <InputText @bind-Value="Model.PhoneNumber" id="phoneNumber" name="phoneNumber" type="tel"
+                                <InputText @bind-Value="_model.PhoneNumber" id="phoneNumber" name="phoneNumber"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Phone Number" />
+                                           placeholder="Phone Number *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.PhoneNumber" />
                             </div>
-                            <div class="w-full">
+                            <div class="w-full flex flex-col">
+                                <label for="address" class="sr-only">Address</label>
+                                <InputText @bind-Value="_model.Address" id="address" name="address"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Address *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Address" />
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full flex flex-col">
+                                <label for="city" class="sr-only">City</label>
+                                <InputText @bind-Value="_model.City" id="city" name="city"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="City *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.City" />
+                            </div>
+                            <div class="w-full flex flex-col">
+                                <label for="country" class="sr-only">Country</label>
+                                <InputText @bind-Value="_model.Country" id="country" name="country"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Country *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Country" />
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full flex flex-col">
+                                <label for="postalCode" class="sr-only">Postal Code</label>
+                                <InputText @bind-Value="_model.PostalCode" id="postalCode" name="postalCode"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Postal Code *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.PostalCode" />
+                            </div>
+                            <div class="w-full flex flex-col">
+                                <label for="organisation" class="sr-only">Organisation</label>
+                                <InputText @bind-Value="_model.Organisation" id="organisation" name="organisation"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Organisation *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Organisation" />
+                            </div>
+                        </div>
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full flex flex-col">
+                                <label for="role" class="sr-only">Role</label>
+                                <InputText @bind-Value="_model.Role" id="role" name="role"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Role *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Role" />
+                            </div>
+                            <div class="w-full flex flex-col">
                                 <label for="department" class="sr-only">Department</label>
-                                <InputText @bind-Value="Model.Department" id="department" name="department"
+                                <InputText @bind-Value="_model.Department" id="department" name="department"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                                           placeholder="Department" />
+                                           placeholder="Department *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Department" />
                             </div>
                         </div>
-                        <div>
-                            <button type="submit"
-                                    class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Sign up
-                            </button>
+                        <div class="w-full flex flex-col md:flex-row gap-2">
+                            <div class="w-full flex flex-col">
+                                <label for="birthday" class="sr-only">Birthday</label>
+                                <InputDate @bind-Value="_model.Birthday" id="birthday" name="birthday"
+                                           class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                                           placeholder="Birthday *" />
+                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Birthday" />
+                            </div>
                         </div>
+                    </div>
+
+                    @if (_errorMessage != null)
+                    {
+                        <div class="text-red-600 text-sm mt-2">
+                            @_errorMessage
+                        </div>
+                    }
+
+                    <div class="flex w-full flex-col gap-4 mt-8">
+                        <button type="submit" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                            Sign up
+                        </button>
                     </div>
                 </EditForm>
             </div>
