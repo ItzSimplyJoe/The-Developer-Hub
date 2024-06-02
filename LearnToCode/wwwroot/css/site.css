@@ -1498,6 +1498,10 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   justify-content: flex-start;
 }
 
+.justify-end {
+  justify-content: flex-end;
+}
+
 .justify-center {
   justify-content: center;
 }

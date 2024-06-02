@@ -13,7 +13,8 @@ namespace DeveloperHub.Components.Pages.Account
         [CascadingParameter]
         public HttpContext? HttpContext { get; set; }
 
-        [SupplyParameterFromForm] public LoginViewModel Model { get; set; } = new();
+        [SupplyParameterFromForm] 
+        public LoginViewModel Model { get; set; } = new();
 
         private string? errorMessage;
 

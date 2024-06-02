@@ -2,6 +2,7 @@
 using DeveloperHub.Domain.Entities;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Forms;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 
@@ -14,6 +15,7 @@ namespace DeveloperHub.Components.Pages.Account
 
         public User? User { get; set; }
 
+        [SupplyParameterFromForm]
         public UserSettingsModel UserSettingsModel { get; set; } = new();
 
         protected override async Task OnInitializedAsync()
@@ -58,6 +60,7 @@ namespace DeveloperHub.Components.Pages.Account
             await InvokeAsync(StateHasChanged);
         }
 
+        [IgnoreAntiforgeryToken]
         public async Task SubmitUserDetails()
         {
             Console.Write("HLeoo");
