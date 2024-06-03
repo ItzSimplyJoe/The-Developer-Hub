@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Security.Claims;
+﻿using System.Security.Claims;
+using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
@@ -13,19 +13,21 @@ namespace DeveloperHub.Components.Pages.Account
         [CascadingParameter]
         public HttpContext? HttpContext { get; set; }
 
-        public LoginViewModel Model { get; set; } = new();
+        private readonly CreateValidator _validator = new();
 
-        private string? errorMessage;
+        private readonly LoginViewModel _model = new();
+
+        private string? _errorMessage;
 
         [IgnoreAntiforgeryToken]
         private async Task SubmitFormAsync()
         {
             var user = await appDbContext.User.FirstOrDefaultAsync(user =>
-                user.Email == Model.Email && user.Password == AccountHelpers.HashPassword(Model.Password));
+                user.Email == _model.Email && user.Password == AccountHelpers.HashPassword(_model.Password));
 
             if (user == null)
             {
-                errorMessage = "Invalid Email or Password";
+                _errorMessage = "Invalid Email or Password";
                 return;
             }
 
@@ -45,11 +47,17 @@ namespace DeveloperHub.Components.Pages.Account
 
         public class LoginViewModel
         {
-            [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter an email")]
             public string? Email { get; set; }
-
-            [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter a password")]
             public string? Password { get; set; }
+        }
+
+        private class CreateValidator : AbstractValidator<LoginViewModel>
+        {
+            public CreateValidator()
+            {
+                RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required");
+                RuleFor(x => x.Password).NotEmpty().WithMessage("Password is required");
+            }
         }
     }
 }

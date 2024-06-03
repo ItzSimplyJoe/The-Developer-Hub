@@ -2189,6 +2189,11 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   color: rgb(107 33 168 / var(--tw-text-opacity));
 }
 
+.text-red-500 {
+  --tw-text-opacity: 1;
+  color: rgb(239 68 68 / var(--tw-text-opacity));
+}
+
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -2309,10 +2314,6 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   transition-duration: 150ms;
 }
 
-.\!delay-\[0ms\] {
-  transition-delay: 0ms !important;
-}
-
 .delay-\[200ms\] {
   transition-delay: 200ms;
 }
@@ -2339,10 +2340,6 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
 
 .delay-\[800ms\] {
   transition-delay: 800ms;
-}
-
-.\!duration-\[0ms\] {
-  transition-duration: 0ms !important;
 }
 
 .duration-100 {

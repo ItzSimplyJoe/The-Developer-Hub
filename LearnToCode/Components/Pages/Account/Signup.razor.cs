@@ -88,7 +88,7 @@ namespace DeveloperHub.Components.Pages.Account
         {
             public CreateValidator()
             {
-                RuleFor(x => x.Email).NotEmpty().EmailAddress().WithMessage("Email is required");
+                RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required").EmailAddress().WithMessage("Must enter a valid email");
                 RuleFor(x => x.Password)
                     .NotEmpty().WithMessage("Password is required")
                     .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
