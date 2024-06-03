@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using static DeveloperHub.Components.Pages.Account.Signup;
 
 namespace DeveloperHub.Components.Pages.Account
 {
