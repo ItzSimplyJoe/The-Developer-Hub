@@ -16,6 +16,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Login";
         options.Cookie.MaxAge = TimeSpan.FromHours(1);
         options.AccessDeniedPath = "/access-denied";
+        options.LogoutPath = "/Logout";
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 
 namespace DeveloperHub.Components.Pages.Account
 {
@@ -129,8 +130,7 @@ namespace DeveloperHub.Components.Pages.Account
     {
         public CreateValidator()
         {
-            RuleFor(x => x.OldPassword).NotEmpty().WithMessage("Old Password is required.")
-                .Equal(x => x.Password).WithMessage("Old Password doesn't match.");
+            RuleFor(x => x.OldPassword).NotEmpty().WithMessage("Old Password is required.");
             RuleFor(x => x.NewPassword)
                 .NotEmpty().WithMessage("Password is required")
                 .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
