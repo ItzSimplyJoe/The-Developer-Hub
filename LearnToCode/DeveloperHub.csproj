@@ -7,6 +7,7 @@
     <UserSecretsId>96dfb770-9d8a-49bc-9c5f-3f54577225e8</UserSecretsId>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Azure.Communication.Email" Version="1.0.1" />
     <PackageReference Include="Blazored.FluentValidation" Version="2.2.0" />
     <PackageReference Include="BlazorInputFile" Version="0.2.0" />
     <PackageReference Include="FluentValidation" Version="11.9.1" />

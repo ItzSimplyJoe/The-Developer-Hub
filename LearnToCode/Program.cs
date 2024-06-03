@@ -1,6 +1,7 @@
 using DeveloperHub.Components;
 using DeveloperHub.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -16,10 +17,10 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LoginPath = "/Login";
         options.Cookie.MaxAge = TimeSpan.FromHours(1);
         options.AccessDeniedPath = "/access-denied";
-        options.LogoutPath = "/Logout";
     });
 builder.Services.AddAuthorization();
 builder.Services.AddCascadingAuthenticationState();
+
 builder.Services.AddDbContext<AppDbContext>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DbConnection");
