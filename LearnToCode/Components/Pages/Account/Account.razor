@@ -185,7 +185,7 @@ else
                     @*
                         User Details
                     *@
-                    <EditForm Model="@UserSettingsModel" FormName="User Details" OnValidSubmit="SubmitUserDetails" class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-start flex flex-col">
+                    <EditForm Model="@UserSettingsModel" FormName="User Details" OnValidSubmit="SubmitUserDetailsAsync" class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-start flex flex-col">
                         <DataAnnotationsValidator/>
                         <div class="w-full">
                             <h4 class="font-semibold text-2xl w-full">
@@ -257,6 +257,9 @@ else
                             Save Settings
                         </button>
                     </EditForm>
+                    @*
+                        Password Section
+                    *@
                     <div class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-start flex flex-col">
                         <div class="w-full">
                             <h4 class="font-semibold text-2xl w-full">

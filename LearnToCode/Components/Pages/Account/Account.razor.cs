@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
+using static DeveloperHub.Components.Pages.Account.Signup;
 
 namespace DeveloperHub.Components.Pages.Account
 {
@@ -61,21 +62,51 @@ namespace DeveloperHub.Components.Pages.Account
         }
 
         [IgnoreAntiforgeryToken]
-        public async Task SubmitUserDetails()
+        public async Task SubmitUserDetailsAsync()
         {
             Console.Write("HLeoo");
+        }
+
+        public async Task UpadteProfilePictureAsync()
+        {
+            Console.Write("Hello world!");
+        }
+
+        public async Task UpdatePasswordAsync()
+        {
+            Console.Write("Hello world!");
+        }
+
+        public async Task AddFriendAsync()
+        {
+            Console.Write("Hello world!");
+        }
+
+        public async Task RemoveFriendAsync()
+        {
+            Console.Write("Hello world!");
+        }
+
+        public async Task SearchFriendAsync()
+        {
+            Console.Write("Hello world!");
+        }
+
+        public async Task AddSocialAccountAsync()
+        {
+            Console.Write("Hello world!");
+        }
+
+        public async Task RemoveSocialAccountAsync()
+        {
+            Console.Write("Hello world!");
         }
     }
 
     public class UserSettingsModel
     {
-        [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter an email")]
         public string? Email { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter your first name")]
         public string? FirstName { get; set; }
-
-        [Required(AllowEmptyStrings = false, ErrorMessage = "You must enter a last name")]
         public string? LastName { get; set; }
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
@@ -86,6 +117,30 @@ namespace DeveloperHub.Components.Pages.Account
         public string? Role { get; set; }
         public string? Department { get; set; }
         public DateTime? Birthday { get; set; }
+    }
 
+    public class PasswordUpdateModel 
+    {
+        public string? OldPassword { get; set; }
+        public string? NewPassword { get; set; }
+        public string? ConfirmPassword { get; set; }
+    }
+
+    public class CreateValidator : AbstractValidator<PasswordUpdateModel>
+    {
+        public CreateValidator()
+        {
+            RuleFor(x => x.OldPassword).NotEmpty().WithMessage("Old Password is required.")
+                .Equal(x => x.Password).WithMessage("Old Password doesn't match.");
+            RuleFor(x => x.NewPassword)
+                .NotEmpty().WithMessage("Password is required")
+                .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
+                .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
+                .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
+                .Matches("[0-9]").WithMessage("Password must contain at least one number")
+                .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one symbol");
+            RuleFor(x => x.ConfirmPassword).NotEmpty().WithMessage("Confirm Password is required")
+                .Equal(x => x.NewPassword).WithMessage("Confirm Password must match Password");
+        }
     }
 }
