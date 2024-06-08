@@ -1,3 +1,4 @@
+using DeveloperHub;
 using DeveloperHub.Components;
 using DeveloperHub.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -26,6 +27,9 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     var connectionString = builder.Configuration.GetConnectionString("DbConnection");
     options.UseSqlServer(connectionString);
 });
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<HttpContextService>();
 
 var app = builder.Build();
 

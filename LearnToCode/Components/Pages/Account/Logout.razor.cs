@@ -6,16 +6,13 @@ namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Logout
     {
-        [CascadingParameter]
-        public HttpContext? HttpContext { get; set; }
-
         [IgnoreAntiforgeryToken]
         protected override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            if (HttpContext.User.Identity.IsAuthenticated)
+            if (HttpContextService.HttpContext.User.Identity.IsAuthenticated)
             {
-                await HttpContext.SignOutAsync();
+                await HttpContextService.HttpContext.SignOutAsync();
                 navigationManager.NavigateTo("/logout", true);
             }
         }

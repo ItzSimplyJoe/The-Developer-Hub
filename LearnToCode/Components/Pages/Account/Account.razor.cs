@@ -11,9 +11,6 @@ namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Account
     {
-        [CascadingParameter]
-        public HttpContext? HttpContext { get; set; }
-
         public User? User { get; set; }
 
         [SupplyParameterFromForm]
@@ -23,7 +20,7 @@ namespace DeveloperHub.Components.Pages.Account
         {
             await base.OnInitializedAsync();
 
-            var input = HttpContext?.User.Claims.FirstOrDefault(item => item.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            var input = HttpContextService.HttpContext?.User.Claims.FirstOrDefault(item => item.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
             if (input == null)
             {
                 navigationManager.NavigateTo("/Not-Found");

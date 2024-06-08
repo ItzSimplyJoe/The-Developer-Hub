@@ -1,5 +1,6 @@
 ﻿@page "/Account"
 @rendermode InteractiveServer
+@attribute [Authorize(Roles = "User, Administrator")]
 @using TimeZone = DeveloperHub.Components.Pages.Account.AccountEnums.TimeZone
 @using DeveloperHub.Components.Pages.Account.AccountEnums
 @if (User == null)

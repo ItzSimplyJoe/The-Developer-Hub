@@ -10,9 +10,6 @@ namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Signup
     {
-        [CascadingParameter]
-        public HttpContext? HttpContext { get; set; }
-
         private readonly SignupViewModel _model = new();
         private readonly CreateValidator _validator = new();
 
@@ -60,7 +57,7 @@ namespace DeveloperHub.Components.Pages.Account
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
-            await HttpContext.SignInAsync(principal);
+            await HttpContextService.HttpContext.SignInAsync(principal);
             navigationManager.NavigateTo("/");
         }
 
