@@ -20,23 +20,17 @@ namespace DeveloperHub.Components.Pages.Account
         {
             await base.OnInitializedAsync();
 
-            var input = HttpContextService.HttpContext?.User.Claims.FirstOrDefault(item => item.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier")?.Value;
+            var input = await AuthStateProvider.GetUserIdAsync();
             if (input == null)
             {
-                navigationManager.NavigateTo("/Not-Found");
-                return;
-            }
-            var id = Guid.Parse(input);
-            if (id == Guid.Empty)
-            {
-                navigationManager.NavigateTo("/Not-Found");
+                NavigationManager.NavigateTo("/Not-Found");
                 return;
             }
 
-            var user = await appDbContext.User.FirstOrDefaultAsync(user => user.Id == id).ConfigureAwait(false);
+            var user = await AppDbContext.User.FirstOrDefaultAsync(user => user.Id == input).ConfigureAwait(false);
             if (user == null)
             {
-                navigationManager.NavigateTo("/Not-Found");
+                NavigationManager.NavigateTo("/Not-Found");
                 return;
             }
 

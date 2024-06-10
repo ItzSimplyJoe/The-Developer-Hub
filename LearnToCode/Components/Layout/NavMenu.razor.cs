@@ -4,13 +4,13 @@ namespace DeveloperHub.Components.Layout
 {
     public partial class NavMenu
     {
-        public string UserId { get; set; }
+        public Guid? UserId { get; set; }
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             base.OnInitializedAsync();
-            var userId = HttpContextService.HttpContext?.User.Claims.FirstOrDefault(user => user.Type == "NameIdentifier")?.Value;
-            if (userId != null)
+            var userId = await AuthStateProvider.GetUserIdAsync();
+            if (userId != Guid.Empty)
                 UserId = userId;
         }
     }

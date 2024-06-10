@@ -7,7 +7,7 @@ namespace DeveloperHub.Domain.Entities
     {
         [Key]
         [Column("Id")]
-        public Guid FriendShipID { get; set; }
+        public Guid FriendShipId { get; set; }
 
         [ForeignKey("User")]
         [Column("UserId")]

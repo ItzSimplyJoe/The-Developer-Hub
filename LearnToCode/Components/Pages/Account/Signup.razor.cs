@@ -17,13 +17,13 @@ namespace DeveloperHub.Components.Pages.Account
 
         private async Task SubmitFormAsync()
         {
-            if (await appDbContext.User.AnyAsync(user => user.Email == _model.Email).ConfigureAwait(false))
+            if (await AppDbContext.User.AnyAsync(user => user.Email == _model.Email).ConfigureAwait(false))
             {
                 _errorMessage = "Account with this email already exists";
                 return;
             }
 
-            var user = new User()
+            var user = new User
             {
                 Email = _model.Email,
                 Password = AccountHelpers.HashPassword(_model.Password),
@@ -44,21 +44,12 @@ namespace DeveloperHub.Components.Pages.Account
                 DateUpdated = DateTime.UtcNow,
             };
 
-            await appDbContext.User.AddAsync(user).ConfigureAwait(false);
-            await appDbContext.SaveChangesAsync().ConfigureAwait(false);
+            await AppDbContext.User.AddAsync(user).ConfigureAwait(false);
+            await AppDbContext.SaveChangesAsync().ConfigureAwait(false);
 
-            var claims = new List<Claim>
-            {
-                new(ClaimTypes.Email, user.Email),
-                new(ClaimTypes.Role, user.PermissionLevel),
-                new(ClaimTypes.Name, user.Name ?? user.Email),
-                new(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContextService.HttpContext.SignInAsync(principal);
-            navigationManager.NavigateTo("/");
+            if (user.Email != null)
+                await AuthStateProvider.SignInAsync(user.Email, user.PermissionLevel, user.Name, user.Id.ToString());
+            NavigationManager.NavigateTo("/");
         }
 
         public class SignupViewModel

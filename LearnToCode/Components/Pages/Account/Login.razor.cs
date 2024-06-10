@@ -1,4 +1,5 @@
-﻿using System.Security.Claims;
+﻿using System;
+using System.Security.Claims;
 using DeveloperHub.Data;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication;
@@ -12,35 +13,30 @@ namespace DeveloperHub.Components.Pages.Account
     public partial class Login
     {
         private readonly CreateValidator _validator = new();
-
         private readonly LoginViewModel _model = new();
-
         private string? _errorMessage;
 
         [IgnoreAntiforgeryToken]
         private async Task SubmitFormAsync()
         {
-            var user = await appDbContext.User.FirstOrDefaultAsync(user =>
-                user.Email == _model.Email && user.Password == AccountHelpers.HashPassword(_model.Password));
-
-            if (user == null)
+            try
             {
-                _errorMessage = "Invalid Email or Password";
-                return;
+                var user = await AppDbContext.User.FirstOrDefaultAsync(u =>
+                    u.Email == _model.Email && u.Password == AccountHelpers.HashPassword(_model.Password));
+
+                if (user == null)
+                {
+                    _errorMessage = "Invalid Email or Password";
+                    return;
+                }
+
+                await AuthStateProvider.SignInAsync(user.Email, user.PermissionLevel, user.Name, user.Id.ToString());
             }
-
-            var claims = new List<Claim>
+            catch (Exception ex)
             {
-                new Claim(ClaimTypes.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.PermissionLevel),
-                new Claim(ClaimTypes.Name, user.Name),
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
-            };
-
-            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var principal = new ClaimsPrincipal(identity);
-            await HttpContextService.HttpContext.SignInAsync(principal);
-            navigationManager.NavigateTo("/");
+                _errorMessage = "An error occurred during login. Please try again.";
+                Console.WriteLine(ex);
+            }
         }
 
         public class LoginViewModel
