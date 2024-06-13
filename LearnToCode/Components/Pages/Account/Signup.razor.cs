@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 using DeveloperHub.Domain.Entities;
-using FluentValidation;
+using DeveloperHub.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
@@ -10,83 +10,58 @@ namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Signup
     {
-        private readonly SignupViewModel _model = new();
-        private readonly CreateValidator _validator = new();
-
-        private string? _errorMessage;
-
-        private async Task SubmitFormAsync()
+        private async Task ConfirmSignupAsync()
         {
-            if (await AppDbContext.User.AnyAsync(user => user.Email == _model.Email).ConfigureAwait(false))
+            if (await AppDbContext.User.AnyAsync(user => user.Email == Model.Email).ConfigureAwait(false))
             {
                 _errorMessage = "Account with this email already exists";
                 return;
             }
 
-            var user = new User
+            if (Model is { Email: not null, Password: not null })
             {
-                Email = _model.Email,
-                Password = AccountHelpers.HashPassword(_model.Password),
-                PermissionLevel = "User",
-                FirstName = _model.FirstName,
-                LastName = _model.LastName,
-                PhoneNumber = _model.PhoneNumber,
-                Address = _model.Address,
-                City = _model.City,
-                Country = _model.Country,
-                PostalCode = _model.PostalCode,
-                Organisation = _model.Organisation,
-                Role = _model.Role,
-                Department = _model.Department,
-                Birthday = _model.Birthday,
-                Name = $"{_model.FirstName} {_model.LastName}",
-                DateCreated = DateTime.UtcNow,
-                DateUpdated = DateTime.UtcNow,
-            };
+                var user = new User
+                {
+                    Email = Model.Email,
+                    Password = AccountHelpers.HashPassword(Model.Password),
+                    PermissionLevel = "User",
+                    FirstName = Model.FirstName,
+                    LastName = Model.LastName,
+                    PhoneNumber = Model.PhoneNumber,
+                    Address = Model.Address,
+                    City = Model.City,
+                    Country = Model.Country,
+                    PostalCode = Model.PostalCode,
+                    Organisation = Model.Organisation,
+                    Role = Model.Role,
+                    Department = Model.Department,
+                    Birthday = Model.Birthday,
+                    Name = $"{Model.FirstName} {Model.LastName}",
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow,
+                };
 
-            await AppDbContext.User.AddAsync(user).ConfigureAwait(false);
-            await AppDbContext.SaveChangesAsync().ConfigureAwait(false);
+                await AppDbContext.User.AddAsync(user).ConfigureAwait(false);
+                await AppDbContext.SaveChangesAsync().ConfigureAwait(false);
 
-            if (user.Email != null)
-                await AuthStateProvider.SignInAsync(user.Email, user.PermissionLevel, user.Name, user.Id.ToString());
-            NavigationManager.NavigateTo("/");
-        }
+                if (user.Role != null)
+                {
+                    var claims = new List<Claim>
+                    {
+                        new(ClaimTypes.Name, user.Name),
+                        new(ClaimTypes.Role, user.Role),
+                        new(ClaimTypes.Email, user.Email),
+                        new(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                    };
 
-        public class SignupViewModel
-        {
-            public string? Email { get; set; }
-            public string? Password { get; set; }
-            public string? ConfirmPassword { get; set; }
-            public string? FirstName { get; set; }
-            public string? LastName { get; set; }
-            public string? PhoneNumber { get; set; }
-            public string? Address { get; set; }
-            public string? City { get; set; }
-            public string? Country { get; set; }
-            public string? PostalCode { get; set; }
-            public string? Organisation { get; set; }
-            public string? Role { get; set; }
-            public string? Department { get; set; }
-            public DateTime? Birthday { get; set; }
-        }
-
-        private class CreateValidator : AbstractValidator<SignupViewModel>
-        {
-            public CreateValidator()
-            {
-                RuleFor(x => x.Email).NotEmpty().WithMessage("Email is required").EmailAddress().WithMessage("Must enter a valid email");
-                RuleFor(x => x.Password)
-                    .NotEmpty().WithMessage("Password is required")
-                    .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
-                    .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
-                    .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
-                    .Matches("[0-9]").WithMessage("Password must contain at least one number")
-                    .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one symbol");
-                RuleFor(x => x.ConfirmPassword).NotEmpty().WithMessage("Confirm Password is required")
-                    .Equal(x => x.Password).WithMessage("Confirm Password must match Password");
-                RuleFor(x => x.FirstName).NotEmpty().WithMessage("First Name is required");
-                RuleFor(x => x.LastName).NotEmpty().WithMessage("Last Name is required");
+                    var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                    var principal = new ClaimsPrincipal(identity);
+                    if (HttpContext != null) 
+                        await HttpContext.SignInAsync(principal);
+                }
             }
+
+            navigationManager.NavigateTo("/");
         }
     }
 }

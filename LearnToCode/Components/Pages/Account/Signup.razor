@@ -1,4 +1,5 @@
 ﻿@page "/Signup"
+@using DeveloperHub.ViewModels
 
 <NavMenu />
 <div class="flex py-24 w-full lg:h-screen justify-center items-center overflow-x-hidden">
@@ -11,122 +12,107 @@
                         Sign in now!
                     </a>
                 </p>
-                <EditForm Model="@_model" OnValidSubmit="@SubmitFormAsync" FormName="SignUpForm">
-                    <FluentValidationValidator DisableAssemblyScanning="true" Validator="@_validator" />
+                <EditForm Model="@Model" OnValidSubmit="@SubmitFormAsync" FormName="SignUpForm">
                     <div class="flex flex-col gap-2 md:gap-6 w-full">
                         <div class="w-full flex flex-col md:flex-row gap-2">
                             <div class="w-full flex flex-col">
                                 <label for="firstName" class="sr-only">First Name</label>
-                                <InputText @bind-Value="_model.FirstName" id="firstName" name="firstName"
+                                <InputText @bind-Value="Model.FirstName" id="firstName" name="firstName"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="First Name *" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.FirstName" />
                             </div>
                             <div class="w-full flex flex-col">
                                 <label for="lastName" class="sr-only">Last Name</label>
-                                <InputText @bind-Value="_model.LastName" id="lastName" name="lastName"
+                                <InputText @bind-Value="Model.LastName" id="lastName" name="lastName"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Last Name *" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.LastName" />
                             </div>
                         </div>
 
                         <div class="flex flex-col">
                             <label for="email" class="sr-only">Email address</label>
-                            <InputText @bind-Value="_model.Email" id="email" name="email" type="email"
+                            <InputText @bind-Value="Model.Email" id="email" name="email" type="email"
                                        autocomplete="email"
                                        class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                        placeholder="Email address *" />
-                            <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Email" />
                         </div>
                         <div class="flex flex-col">
                             <label for="password" class="sr-only">Password</label>
-                            <InputText @bind-Value="_model.Password" id="password" name="password" type="password"
+                            <InputText @bind-Value="Model.Password" id="password" name="password" type="password"
                                        autocomplete="current-password"
                                        class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                        placeholder="Password *" />
-                            <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Password" />
                         </div>
                         <div class="flex flex-col">
                             <label for="confirmPassword" class="sr-only">Confirm Password</label>
-                            <InputText @bind-Value="_model.ConfirmPassword" id="confirmPassword"
+                            <InputText @bind-Value="Model.ConfirmPassword" id="confirmPassword"
                                        type="password"
                                        class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                        placeholder="Confirm Password *" />
-                            <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.ConfirmPassword" />
                         </div>
 
                         <div class="w-full flex flex-col md:flex-row gap-2">
                             <div class="w-full flex flex-col">
                                 <label for="phoneNumber" class="sr-only">Phone Number</label>
-                                <InputText @bind-Value="_model.PhoneNumber" id="phoneNumber" name="phoneNumber"
+                                <InputText @bind-Value="Model.PhoneNumber" id="phoneNumber" name="phoneNumber"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Phone Number *" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.PhoneNumber" />
                             </div>
                             <div class="w-full flex flex-col">
                                 <label for="address" class="sr-only">Address</label>
-                                <InputText @bind-Value="_model.Address" id="address" name="address"
+                                <InputText @bind-Value="Model.Address" id="address" name="address"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Address *" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Address" />
                             </div>
                         </div>
                         <div class="w-full flex flex-col md:flex-row gap-2">
                             <div class="w-full flex flex-col">
                                 <label for="city" class="sr-only">City</label>
-                                <InputText @bind-Value="_model.City" id="city" name="city"
+                                <InputText @bind-Value="Model.City" id="city" name="city"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="City *" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.City" />
                             </div>
                             <div class="w-full flex flex-col">
                                 <label for="country" class="sr-only">Country</label>
-                                <InputText @bind-Value="_model.Country" id="country" name="country"
+                                <InputText @bind-Value="Model.Country" id="country" name="country"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Country" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Country" />
                             </div>
                         </div>
                         <div class="w-full flex flex-col md:flex-row gap-2">
                             <div class="w-full flex flex-col">
                                 <label for="postalCode" class="sr-only">Postal Code</label>
-                                <InputText @bind-Value="_model.PostalCode" id="postalCode" name="postalCode"
+                                <InputText @bind-Value="Model.PostalCode" id="postalCode" name="postalCode"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Postal Code" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.PostalCode" />
                             </div>
                             <div class="w-full flex flex-col">
                                 <label for="organisation" class="sr-only">Organisation</label>
-                                <InputText @bind-Value="_model.Organisation" id="organisation" name="organisation"
+                                <InputText @bind-Value="Model.Organisation" id="organisation" name="organisation"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Organisation" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Organisation" />
                             </div>
                         </div>
                         <div class="w-full flex flex-col md:flex-row gap-2">
                             <div class="w-full flex flex-col">
                                 <label for="role" class="sr-only">Role</label>
-                                <InputText @bind-Value="_model.Role" id="role" name="role"
+                                <InputText @bind-Value="Model.Role" id="role" name="role"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Role" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Role" />
                             </div>
                             <div class="w-full flex flex-col">
                                 <label for="department" class="sr-only">Department</label>
-                                <InputText @bind-Value="_model.Department" id="department" name="department"
+                                <InputText @bind-Value="Model.Department" id="department" name="department"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Department" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Department" />
                             </div>
                         </div>
                         <div class="w-full flex flex-col md:flex-row gap-2">
                             <div class="w-full flex flex-col">
                                 <label for="birthday" class="sr-only">Birthday</label>
-                                <InputDate @bind-Value="_model.Birthday" id="birthday" name="birthday"
+                                <InputDate @bind-Value="Model.Birthday" id="birthday" name="birthday"
                                            class="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
                                            placeholder="Birthday" />
-                                <ValidationMessage class="mt-1 text-sm text-red-600" For="() => _model.Birthday" />
                             </div>
                         </div>
                     </div>
@@ -159,3 +145,90 @@
         </div>
     </div>
 </div>
+
+@code
+{
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    [SupplyParameterFromForm]
+    private SignupViewModel Model { get; set; } = new();
+
+    private string? _errorMessage;
+
+    private async Task SubmitFormAsync()
+    {
+        if (string.IsNullOrWhiteSpace(Model.Email))
+        {
+            _errorMessage = "Email is required";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.Password))
+        {
+            _errorMessage = "Password is required";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.ConfirmPassword))
+        {
+            _errorMessage = "Confirm Password is required";
+            return;
+        }
+
+        if (Model.Password != Model.ConfirmPassword)
+        {
+            _errorMessage = "Passwords do not match";
+            return;
+        }
+
+        if (!PasswordValidator.ValidatePassword(Model.Password))
+        {
+            _errorMessage = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.FirstName))
+        {
+            _errorMessage = "First Name is required";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(Model.LastName))
+        {
+            _errorMessage = "Last Name is required";
+            return;
+        }
+
+        await ConfirmSignupAsync().ConfigureAwait(false);
+    }
+
+
+    public static class PasswordValidator
+    {
+        public static bool ValidatePassword(string password)
+        {
+            if (password.Length < 8)
+            {
+                return false;
+            }
+
+            if (!password.Any(char.IsUpper))
+            {
+                return false;
+            }
+
+            if (!password.Any(char.IsLower))
+            {
+                return false;
+            }
+
+            return password.Any(char.IsDigit) && password.Any(IsSpecialCharacter);
+        }
+
+        private static bool IsSpecialCharacter(char c)
+        {
+            return !char.IsLetterOrDigit(c);
+        }
+    }
+}

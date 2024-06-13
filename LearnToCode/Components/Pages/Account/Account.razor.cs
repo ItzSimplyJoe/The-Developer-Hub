@@ -5,12 +5,16 @@ using Microsoft.AspNetCore.Components.Forms;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
-using FluentValidation;
+using System.Security.Claims;
+using DeveloperHub.ViewModels;
 
 namespace DeveloperHub.Components.Pages.Account
 {
     public partial class Account
     {
+        [CascadingParameter]
+        public HttpContext? HttpContext { get; set; }
+
         public User? User { get; set; }
 
         [SupplyParameterFromForm]
@@ -20,17 +24,19 @@ namespace DeveloperHub.Components.Pages.Account
         {
             await base.OnInitializedAsync();
 
-            var input = await AuthStateProvider.GetUserIdAsync();
+            var input = HttpContext.User.Claims.FirstOrDefault(item => item.Type == ClaimTypes.NameIdentifier).Value;
+
             if (input == null)
             {
-                NavigationManager.NavigateTo("/Not-Found");
+                navigationManager.NavigateTo("/Not-Found");
                 return;
             }
 
-            var user = await AppDbContext.User.FirstOrDefaultAsync(user => user.Id == input).ConfigureAwait(false);
+            var id = Guid.Parse(input);
+            var user = await AppDbContext.User.FirstOrDefaultAsync(user => user.Id == id).ConfigureAwait(false);
             if (user == null)
             {
-                NavigationManager.NavigateTo("/Not-Found");
+                navigationManager.NavigateTo("/Not-Found");
                 return;
             }
 
@@ -91,46 +97,6 @@ namespace DeveloperHub.Components.Pages.Account
         public async Task RemoveSocialAccountAsync()
         {
             Console.Write("Hello world!");
-        }
-    }
-
-    public class UserSettingsModel
-    {
-        public string? Email { get; set; }
-        public string? FirstName { get; set; }
-        public string? LastName { get; set; }
-        public string? PhoneNumber { get; set; }
-        public string? Address { get; set; }
-        public string? City { get; set; }
-        public string? Country { get; set; }
-        public string? PostalCode { get; set; }
-        public string? Organisation { get; set; }
-        public string? Role { get; set; }
-        public string? Department { get; set; }
-        public DateTime? Birthday { get; set; }
-    }
-
-    public class PasswordUpdateModel 
-    {
-        public string? OldPassword { get; set; }
-        public string? NewPassword { get; set; }
-        public string? ConfirmPassword { get; set; }
-    }
-
-    public class CreateValidator : AbstractValidator<PasswordUpdateModel>
-    {
-        public CreateValidator()
-        {
-            RuleFor(x => x.OldPassword).NotEmpty().WithMessage("Old Password is required.");
-            RuleFor(x => x.NewPassword)
-                .NotEmpty().WithMessage("Password is required")
-                .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
-                .Matches("[A-Z]").WithMessage("Password must contain at least one uppercase letter")
-                .Matches("[a-z]").WithMessage("Password must contain at least one lowercase letter")
-                .Matches("[0-9]").WithMessage("Password must contain at least one number")
-                .Matches("[^a-zA-Z0-9]").WithMessage("Password must contain at least one symbol");
-            RuleFor(x => x.ConfirmPassword).NotEmpty().WithMessage("Confirm Password is required")
-                .Equal(x => x.NewPassword).WithMessage("Confirm Password must match Password");
         }
     }
 }
