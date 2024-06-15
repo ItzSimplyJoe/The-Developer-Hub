@@ -1,4 +1,7 @@
-﻿<aside class="flex flex-col sticky top-0 w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
+﻿@using DeveloperHub.Domain.Entities
+@using Microsoft.EntityFrameworkCore
+@using System.Security.Claims
+<aside class="flex flex-col sticky top-0 w-64 h-screen px-4 py-8 overflow-y-auto bg-white border-r rtl:border-r-0 rtl:border-l dark:bg-gray-900 dark:border-gray-700">
     <a href="#">
         <img class="w-auto h-16 sm:h-7" src="/Images/LogoNoText.png" alt="">
     </a>
@@ -72,7 +75,32 @@
 
         <a href="#" class="flex items-center px-4 -mx-2">
             <img class="object-cover mx-2 rounded-full h-9 w-9" src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80" alt="avatar" />
-            <span class="mx-2 font-medium text-gray-800 dark:text-gray-200">John Doe</span>
+            <span class="mx-2 font-medium text-gray-800 dark:text-gray-200">@(User?.Name ?? "Anonymous User")</span>
         </a>
     </div>
 </aside>
+
+                
+@code
+{
+    [CascadingParameter]
+    public HttpContext? HttpContext { get; set; }
+
+    public User? User { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+
+        if (HttpContext != null)
+        {
+            var input = HttpContext.User.Claims.FirstOrDefault(item => item.Type == ClaimTypes.NameIdentifier)?.Value;
+
+            var id = Guid.Parse(input);
+            var user = await AppDbContext.User.FirstOrDefaultAsync(user => user.Id == id).ConfigureAwait(false);
+
+            if (user != null)
+                User = user;
+        }
+    }
+}

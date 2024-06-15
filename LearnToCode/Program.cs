@@ -1,8 +1,6 @@
-using DeveloperHub;
 using DeveloperHub.Components;
 using DeveloperHub.Data;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);

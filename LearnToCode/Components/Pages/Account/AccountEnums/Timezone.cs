@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace DeveloperHub.Components.Pages.Account.AccountEnums
+﻿namespace DeveloperHub.Components.Pages.Account.AccountEnums
 {
     public enum TimeZone
     {

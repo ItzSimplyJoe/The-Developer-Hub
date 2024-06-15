@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using DeveloperHub.Components.Pages.Account.AccountEnums;
+using TimeZone = DeveloperHub.Components.Pages.Account.AccountEnums.TimeZone;
 
 namespace DeveloperHub.Domain.Entities
 {
@@ -77,6 +79,9 @@ namespace DeveloperHub.Domain.Entities
 
         [Column("ProfilePicture")]
         public string? ImageBytes { get; set; }
+
+        public Language? Language { get; set; }
+        public TimeZone? TimeZone { get; set; }
 
         public virtual IEnumerable<Friends>? Friends { get; set; }
     }

@@ -1,9 +1,7 @@
 ﻿using System.Security.Claims;
 using DeveloperHub.Domain.Entities;
-using DeveloperHub.ViewModels;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Components;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeveloperHub.Components.Pages.Account

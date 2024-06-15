@@ -1427,6 +1427,12 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
 
+.scale-\[0\.6\] {
+  --tw-scale-x: 0.6;
+  --tw-scale-y: 0.6;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
 }
@@ -2233,6 +2239,10 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   color: rgb(107 114 128 / var(--tw-placeholder-opacity));
 }
 
+.opacity-0 {
+  opacity: 0;
+}
+
 .opacity-20 {
   opacity: 0.2;
 }
@@ -2314,6 +2324,10 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   transition-duration: 150ms;
 }
 
+.\!delay-\[0ms\] {
+  transition-delay: 0ms !important;
+}
+
 .delay-\[200ms\] {
   transition-delay: 200ms;
 }
@@ -2340,6 +2354,10 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
 
 .delay-\[800ms\] {
   transition-delay: 800ms;
+}
+
+.\!duration-\[0ms\] {
+  transition-duration: 0ms !important;
 }
 
 .duration-100 {
@@ -2420,6 +2438,18 @@ html.js :where([class*="taos:"]:not(.taos-init)) {
   --scrollbar-thumb: #9ca3af !important;
 }
 
+.\[transform\:translate3d\(-200px\2c 0\2c 0\)_scale\(0\.6\)\] {
+  transform: translate3d(-200px,0,0) scale(0.6);
+}
+
+.\[transform\:translate3d\(0\2c -200px\2c 0\)_scale\(0\.6\)\] {
+  transform: translate3d(0,-200px,0) scale(0.6);
+}
+
+.\[transform\:translate3d\(200px\2c 0\2c 0\)_scale\(0\.6\)\] {
+  transform: translate3d(200px,0,0) scale(0.6);
+}
+
 html, body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
 }
@@ -2470,6 +2500,34 @@ h1:focus {
 
 .darker-border-checkbox.form-check-input {
   border-color: #929292;
+}
+
+.file\:rounded-lg::file-selector-button {
+  border-radius: 0.5rem;
+}
+
+.file\:bg-blue-500::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity));
+}
+
+.file\:px-4::file-selector-button {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.file\:py-2::file-selector-button {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.file\:font-bold::file-selector-button {
+  font-weight: 700;
+}
+
+.file\:text-white::file-selector-button {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .placeholder\:text-gray-400::-moz-placeholder {
@@ -2562,6 +2620,11 @@ h1:focus {
 
 .hover\:ring-gray-900\/20:hover {
   --tw-ring-color: rgb(17 24 39 / 0.2);
+}
+
+.file\:hover\:bg-blue-700:hover::file-selector-button {
+  --tw-bg-opacity: 1;
+  background-color: rgb(29 78 216 / var(--tw-bg-opacity));
 }
 
 .focus\:z-10:focus {

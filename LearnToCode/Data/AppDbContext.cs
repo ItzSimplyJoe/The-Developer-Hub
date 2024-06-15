@@ -1,5 +1,4 @@
-﻿using DeveloperHub.Data;
-using DeveloperHub.Domain.Entities;
+﻿using DeveloperHub.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace DeveloperHub.Data

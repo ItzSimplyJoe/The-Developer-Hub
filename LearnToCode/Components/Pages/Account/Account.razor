@@ -1,7 +1,9 @@
 ﻿@page "/Account"
-@rendermode InteractiveServer
 @using TimeZone = DeveloperHub.Components.Pages.Account.AccountEnums.TimeZone
 @using DeveloperHub.Components.Pages.Account.AccountEnums
+@using DeveloperHub.ViewModels
+@using BlazorInputFile
+@using Microsoft.AspNetCore.Mvc
 @if (User == null)
 {
     <p>Loading...</p>
@@ -25,14 +27,28 @@ else
                         Profile Picture & Name
                     *@
                     <div class="bg-white w-full shadow-md rounded-lg gap-4 p-8 justify-start items-center flex flex-col md:flex-row">
-                        <div class="w-24 h-24 flex justify-center items-center bg-red-200 rounded-full text-3xl font-bold">
-                            JB
-                        </div>
+                        @if (_photoURL != null)
+                        {
+                            <img src="@_photoURL" alt="Profile Picture" class="w-24 h-24 rounded-full" />
+                        }
+                        else
+                        {
+                            <div class="w-24 h-24 flex justify-center items-center bg-red-200 rounded-full text-3xl font-bold">
+                                JB
+                            </div>
+                        }
 
                         <div class="flex flex-col gap-2">
                             <h3 class="text-gray-800 font-semibold text-2xl">Joe Bostock</h3>
                             <p class="text-gray-500 text-xl">Developer</p>
-                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                            <BlazorInputFile.InputFile class="file:bg-blue-500 file:hover:bg-blue-700 file:text-white file:font-bold file:py-2 file:px-4 file:rounded-lg" id="image-picker" OnChange="@HandlePhotoSelected" accept="image/*" />
+                            @if (_errorMessagePFP != null)
+                            {
+                                <div class="text-red-600 text-sm mt-2">
+                                    @_errorMessagePFP
+                                </div>
+                            }
+                            <button @onclick="@(UpdateProfilePictureAsync)" class="bg-blue-500 hover:bg-blue-700 text-white le:font-bold py-2 px-4 rounded-lg">
                                 Change PFP
                             </button>
                         </div>
@@ -46,10 +62,10 @@ else
                             Language & Timezone
                         </h4>
 
-                        <div class="flex flex-col gap-6 w-full">
+                        <EditForm Model="@DateTimeViewModel" OnValidSubmit="UpdateLanguageAndTime" class="flex flex-col gap-6 w-full">
                             <div class="flex flex-row gap-4 w-full justify-center items-center">
                                 <label for="language" class="text-gray-800 font-semibold text-xl">Language</label>
-                                <select name="language" id="language" class="p-2 rounded-lg bg-gray-100 border border-gray-400 p-2 w-full">
+                                <select @bind="@DateTimeViewModel.Language" name="language" id="language" class="p-2 rounded-lg bg-gray-100 border border-gray-400 p-2 w-full">
                                     @foreach (var language in Enum.GetValues(typeof(Language)))
                                     {
                                         <option value="@language">@language.ToString()</option>
@@ -58,17 +74,17 @@ else
                             </div>
                             <div class="flex flex-row gap-4 w-full justify-center items-center">
                                 <label for="timezone" class="text-gray-800 font-semibold text-xl">Timezone</label>
-                                <select name="timezone" id="timezone" class="p-2 rounded-lg bg-gray-100 border border-gray-400 p-2 w-full">
+                                <select @bind="@DateTimeViewModel.TimeZone" name="timezone" id="timezone" class="p-2 rounded-lg bg-gray-100 border border-gray-400 p-2 w-full">
                                     @foreach (var timezone in Enum.GetValues(typeof(TimeZone)))
                                     {
                                         <option value="@timezone">@timezone.ToString()</option>
                                     }
                                 </select>
                             </div>
-                        </div>
-                        <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
-                            Save Settings
-                        </button>
+                            <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
+                                Save Settings
+                            </button>
+                        </EditForm>
                     </div>
 
                     @*
@@ -221,7 +237,7 @@ else
 
                             <div class="flex flex-col gap-2">
                                 <label for="email" class="text-gray-800 font-semibold text-md">Email</label>
-                                <InputText @bind-Value="UserSettingsModel.Email" id="email" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your email" />
+                                <InputText @bind-Value="UserSettingsModel.Email" id="email" type="Email" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your email" />
                             </div>
 
                             <div class="flex flex-col gap-2">
@@ -254,6 +270,12 @@ else
                                 <InputText @bind-Value="UserSettingsModel.PostalCode" type="text" id="zip" class="p-2 rounded-lg bg-gray-100 border border-gray-400 w-full" placeholder="Enter your zip/postal code" />
                             </div>
                         </div>
+                        @if (_errorMessageUserSettings != null)
+                        {
+                            <div class="text-red-600 text-sm mt-2">
+                                @_errorMessageUserSettings
+                            </div>
+                        }
                         <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
                             Save Settings
                         </button>
@@ -291,6 +313,12 @@ else
                                 <li>At least one special character</li>
                             </ul>
                         </div>
+                        @if (_errorMessagePassword != null)
+                        {
+                            <div class="text-red-600 text-sm mt-2">
+                                @_errorMessagePassword
+                            </div>
+                        }
                         <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg">
                             Save Settings
                         </button>
@@ -299,4 +327,107 @@ else
             </div>
         </div>
     </div>
+}
+
+@code{
+    private string? _errorMessageUserSettings;
+    private string? _errorMessagePassword;
+    private string? _errorMessagePFP;
+    private string? _photoURL;
+    
+    [SupplyParameterFromForm]
+    public UserSettingsModel UserSettingsModel { get; set; } = new();
+
+    [SupplyParameterFromForm]
+    public PasswordUpdateModel PasswordUpdateModel { get; set; } = new();
+
+    [SupplyParameterFromForm]
+    public DateTimeViewModel DateTimeViewModel { get; set; } = new();
+
+    [IgnoreAntiforgeryToken]
+    public async Task SubmitUserDetailsAsync()
+    {
+        if (string.IsNullOrWhiteSpace(UserSettingsModel.Email))
+        {
+            _errorMessageUserSettings = "Email is required";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(UserSettingsModel.FirstName))
+        {
+            _errorMessageUserSettings = "First Name is required";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(UserSettingsModel.LastName))
+        {
+            _errorMessageUserSettings = "Last Name is required";
+            return;
+        }
+
+        await UpdateUserDetails().ConfigureAwait(false);
+        await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+    }
+
+    [IgnoreAntiforgeryToken]
+    public async Task UpdatePasswordAsync()
+    {
+        if (string.IsNullOrWhiteSpace(PasswordUpdateModel.OldPassword))
+        {
+            _errorMessagePassword = "Old password is required";
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(PasswordUpdateModel.NewPassword))
+        {
+            _errorMessagePassword = "New password is required";
+            return;
+        }
+        if (string.IsNullOrWhiteSpace(PasswordUpdateModel.ConfirmPassword))
+        {
+            _errorMessagePassword = "Confirm Password is required";
+            return;
+        }
+
+        if (PasswordUpdateModel.NewPassword != PasswordUpdateModel.ConfirmPassword)
+        {
+            _errorMessagePassword = "Passwords do not match";
+            return;
+        }
+
+        if (!PasswordValidator.ValidatePassword(PasswordUpdateModel.NewPassword))
+        {
+            _errorMessagePassword = "Password must be at least 8 characters long, contain at least one uppercase letter, one lowercase letter, one digit, and one special character";
+            return;
+        }
+
+        await UpdatePassword().ConfigureAwait(false);
+        await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+    }
+
+    public async Task HandlePhotoSelected(IFileListEntry[] files)
+    {
+        try
+        {
+            var file = files.FirstOrDefault();
+            if (file != null)
+            {
+                var imageFile = await file.ToImageFileAsync("image/jpeg", 800, 600);
+                var bytes = await imageFile.ReadAllAsync();
+                _photoURL = bytes.ToDataUrl("image/jpeg");
+                await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessagePFP = $"Error uploading image: {ex.Message}";
+        }
+    }
+
+    [IgnoreAntiforgeryToken]
+    public async Task UpdateLanguageAndTime()
+    {
+        await UpdateTimeAndLanguage().ConfigureAwait(false);
+        await InvokeAsync(StateHasChanged).ConfigureAwait(false);
+    }
 }
